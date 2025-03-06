@@ -14,6 +14,18 @@ A simple Node.js service that extracts audio from video files using FFmpeg.
 - npm or yarn
 - FFmpeg (installed automatically via dependencies)
 
+## Project Structure
+
+The application uses an `assets` directory in the project root for all file operations:
+
+```
+assets/
+├── videos/       # Place your input video files here
+└── audio/        # Extracted audio will be saved here
+```
+
+The `assets` directory will be created automatically when the server starts.
+
 ## Usage
 
 ### Starting the Server
@@ -49,13 +61,13 @@ Extracts audio from a video file.
 
 ```json
 {
-  "filePath": "/path/to/input/video.mp4",
-  "outputPath": "/path/to/output/audio.wav"
+  "filePath": "assets/input/video.mp4",
+  "outputPath": "assets/output/audio.wav"
 }
 ```
 
-- `filePath`: Absolute path to the input video file (required)
-- `outputPath`: Absolute path where the extracted audio will be saved (required)
+- `filePath`: Path to the input video file inside the `assets` directory (required)
+- `outputPath`: Path where the extracted audio will be saved, should be inside the `assets` directory (required)
 
 **Response:**
 
@@ -65,7 +77,7 @@ Success:
 {
   "success": true,
   "message": "Audio extracted successfully",
-  "outputPath": "/path/to/output/audio.wav"
+  "outputPath": "assets/audio/output.wav"
 }
 ```
 
@@ -84,8 +96,8 @@ Error:
 curl -X POST http://localhost:3000/video \
   -H "Content-Type: application/json" \
   -d '{
-    "filePath": "/Users/username/videos/input.mp4",
-    "outputPath": "/Users/username/audio/output.wav"
+    "filePath": "assets/videos/input.mp4",
+    "outputPath": "assets/audio/output.wav"
   }'
 ```
 
@@ -97,8 +109,8 @@ curl -X POST http://localhost:3000/video \
    curl -X POST http://localhost:3000/video \
      -H "Content-Type: application/json" \
      -d '{
-       "filePath": "/path/to/video.mp4",
-       "outputPath": "/path/to/audio.wav"
+       "filePath": "assets/videos/demo.mp4",
+       "outputPath": "assets/audio/demo.wav"
      }'
    ```
 
@@ -108,8 +120,8 @@ curl -X POST http://localhost:3000/video \
    curl -X POST http://localhost:3000/video \
      -H "Content-Type: application/json" \
      -d '{
-       "filePath": "/Users/username/Downloads/lecture.mp4",
-       "outputPath": "/Users/username/Music/lecture_audio.wav"
+       "filePath": "assets/videos/lecture.mp4",
+       "outputPath": "assets/audio/lecture_notes.wav"
      }'
    ```
 
